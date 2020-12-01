@@ -38,13 +38,13 @@ const RunsOverviewItem = ({ repo, run }) => {
 
   const url = `https://github.com/${repo}/actions/runs/${run.id}`
   const handleClick = () => window.open(url, '_blank')
-
+  console.log(run)
   return (
     <ListItem button onClick={handleClick}>
       <ListItemIcon>
         <RunIcon status={run.status}/>
       </ListItemIcon>
-      <ListItemText primary={workflow.name} />
+      <ListItemText primaryTypographyProps={{ noWrap: true }} primary={run.head_commit.message} secondary={workflow.name}/>
     </ListItem>
   )
 }
@@ -70,7 +70,7 @@ const repoNames = process.env.REACT_APP_REPOS.split(',')
 
 function App () {
   const repos = repoNames.map(repo => (
-    <Grid item xs={12} lg={3} key={repo}>
+    <Grid item xs={12} lg={4} key={repo}>
       <RunsOverview repo={repo}/>
     </Grid>
   ))
